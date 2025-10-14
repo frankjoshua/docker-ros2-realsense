@@ -1,4 +1,4 @@
-# ROS master in Docker [![](https://img.shields.io/docker/pulls/frankjoshua/ros2-master)](https://hub.docker.com/r/frankjoshua/ros2-master) [![CI](https://github.com/frankjoshua/docker-ros2-master/workflows/CI/badge.svg)](https://github.com/frankjoshua/docker-ros2-master/actions)
+# ROS master in Docker [![](https://img.shields.io/docker/pulls/frankjoshua/ros2-realsense)](https://hub.docker.com/r/frankjoshua/ros2-realsense) [![CI](https://github.com/frankjoshua/docker-ros2-realsense/workflows/CI/badge.svg)](https://github.com/frankjoshua/docker-ros2-realsense/actions)
 
 ## Description
 
@@ -13,7 +13,7 @@ docker run -it \
     --network=host \
     --ipc=host \
     --pid=host \
-    frankjoshua/ros2-master
+    frankjoshua/ros2-realsense
 ```
 
 ## Building
@@ -23,12 +23,12 @@ Use [build.sh](build.sh) to build the docker containers.
 <br>Local builds are as follows:
 
 ```
-./build.sh -t frankjoshua/ros2-master -l
+./build.sh -t frankjoshua/ros2-realsense -l
 ```
 
 To build for both amd64 and arm64. Also push to docker hub.
 ```
-./build.sh -t frankjoshua/ros2-master -p
+./build.sh -t frankjoshua/ros2-realsense -p
 ```
 
 ## Template
