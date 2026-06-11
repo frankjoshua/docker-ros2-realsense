@@ -3,10 +3,10 @@
 ##
 #   Multi-Arch ROS2 + Intel RealSense Dockerfile
 #   Works for: linux/amd64 and linux/arm64
-#   Base: frankjoshua/ros2:latest (ROS Humble)
+#   Base: frankjoshua/ros2:humble (ROS Humble)
 ##
 
-ARG BASE_IMAGE=frankjoshua/ros2:latest
+ARG BASE_IMAGE=frankjoshua/ros2:humble
 FROM ${BASE_IMAGE} AS base
 
 LABEL maintainer="Joshua Frank <josh@joshfrank.com>"
@@ -48,6 +48,7 @@ RUN mkdir build && cd build && \
     cmake .. \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/opt/librealsense \
+        -DCMAKE_CXX_FLAGS="--param ggc-min-expand=20 --param ggc-min-heapsize=131072" \
         -DBUILD_EXAMPLES=OFF \
         -DBUILD_GRAPHICAL_EXAMPLES=OFF \
         -DBUILD_PYTHON_BINDINGS:BOOL=TRUE \
@@ -57,7 +58,7 @@ RUN mkdir build && cd build && \
         -DBUILD_WITH_OPENGL=OFF \
         -DBUILD_WITH_CUDA=OFF \
         -DENABLE_LTO=OFF && \
-    make -j$(nproc) && make install && ldconfig
+    make -j1 && make install && ldconfig
 
 # ============================================================
 # Stage 2 – Clone realsense-ros workspace
@@ -97,7 +98,8 @@ RUN if [ "$TARGETARCH" = "amd64" ]; then \
         rosdep update && \
         rosdep install --from-paths src --ignore-src -r -y --skip-keys=librealsense2 && \
         . /opt/ros/${ROS_DISTRO}/setup.sh && \
-        colcon build --symlink-install && \
+        MAKEFLAGS=-j1 CXXFLAGS="--param ggc-min-expand=20 --param ggc-min-heapsize=131072" \
+          colcon build --symlink-install --executor sequential && \
         rm -rf /var/lib/apt/lists/*; \
     fi
 
