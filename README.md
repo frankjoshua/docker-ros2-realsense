@@ -1,10 +1,10 @@
-# ROS master in Docker [![](https://img.shields.io/docker/pulls/frankjoshua/ros2-realsense)](https://hub.docker.com/r/frankjoshua/ros2-realsense) [![CI](https://github.com/frankjoshua/docker-ros2-realsense/workflows/CI/badge.svg)](https://github.com/frankjoshua/docker-ros2-realsense/actions)
+# Intel RealSense driver in Docker [![](https://img.shields.io/docker/pulls/frankjoshua/ros2-realsense)](https://hub.docker.com/r/frankjoshua/ros2-realsense) [![CI](https://github.com/frankjoshua/docker-ros2-realsense/workflows/CI/badge.svg)](https://github.com/frankjoshua/docker-ros2-realsense/actions)
 
 ## Description
 
-Runs a ros master in a Docker container. Probably need --network="host" because ROS uses ephemeral ports. --ipc=host is needed to allow shared memory between processes for dds when multiple containers are on the same machine. --pid=host is needed for unique guid in dds to avoid possible id conflicts.
+Runs the Intel RealSense RGB-D camera driver (realsense-ros) in a Docker container — prebuilt Humble packages on amd64, librealsense + realsense-ros built from source on arm64. `--network=host` is needed for ROS 2 DDS discovery. --ipc=host is needed to allow shared memory between processes for dds when multiple containers are on the same machine. --pid=host is needed for unique guid in dds to avoid possible id conflicts.
 
-This repo is mostly an example of how to build a multi architecture docker container with ROS (Robotic Operating System). Github Actions is used to build 3 docker containers using `docker buildx` amd64 (x86 Desktop PC), arm64 (Jetson Nano) and arm32 (Raspberry Pi). This is for the purpose of developing locally on a work pc or laptop. Then being able to transfer your work to an embedded device with a high level of confidence of success.
+This repo is mostly an example of how to build a multi architecture docker container with ROS (Robotic Operating System). Github Actions is used to build multi-architecture images using `docker buildx` for amd64 (x86 Desktop PC) and arm64 (Jetson). This is for the purpose of developing locally on a work pc or laptop. Then being able to transfer your work to an embedded device with a high level of confidence of success.
 
 ## Example
 
